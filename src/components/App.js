@@ -11,14 +11,12 @@ import { useState } from "react";
 function App() {
   const [tempTasks, setTasks] = useState(TASKS);
   function changeTasks(category) {
-    console.log("called");
     if (category === "All")
       setTasks(TASKS)
     else
       setTasks(TASKS.filter((task) => task.category === category));
   }
-  function onTaskFormSubmit(event, text, category) {
-    event.preventDefault();
+  function onTaskFormSubmit({category: category, text: text}) {
     setTasks([...tempTasks, {text: text, category: category}]);
   }
   console.log(tempTasks);
@@ -26,7 +24,7 @@ function App() {
     <div className="App">
       <h2>My tasks</h2>
       <CategoryFilter changeTasks={changeTasks}/>
-      <NewTaskForm categories={CATEGORIES} onTaskFormSubmit={onTaskFormSubmit}/>
+      <NewTaskForm onTaskFormSubmit={onTaskFormSubmit}/>
       <TaskList tasks={tempTasks}/>
     </div>
   );
